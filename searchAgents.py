@@ -315,12 +315,12 @@ class CornersProblem(search.SearchProblem):
         """
         "*** YOUR CODE HERE ***"
         count = 0
-        for node in state[1]:
-            #print("This is state : ", state)
-            if not node:
-                # print("CORNER : ", node)
+        print("State, ", state)
+        for corner in state[1]:
+            if not corner:
+                # print("CORNER : ", corner)
                 return False
-        return True # that means that all corners were true and thus all found
+        return True # that means that all corners were true (visited) and thus we reached our goal
         util.raiseNotDefined()
 
     def getSuccessors(self, state):
@@ -505,11 +505,16 @@ def foodHeuristic(state, problem):
     walls = problem.walls
     foodL = foodGrid.asList()
     distances = []
+    count = 0
     if problem.isGoalState(state):
         return 0
     if state not in walls:
         for food in foodGrid.asList():
             distances.append(abs(position[0] - food[0]) + abs(position[1] - food[1])) #manhattanHeuristic
+            count = count + 1
+            if(count==2): # getting two dots
+                return min(distances)
+
 
     return min(distances)
 
