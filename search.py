@@ -95,12 +95,13 @@ def depthFirstSearch(problem):
     # print("Start's successors:", problem.getSuccessors(problem.getStartState()))
     s = util.Stack()
     visited = []  # a list to check if a node has been already visited
-    path = []
+    path = []  # a list to keep track of the path
     s.push((problem.getStartState(), []))
 
     # if the stack gets empty, it means that no solution was found
     while not s.isEmpty():
-        node, path = s.pop()  # Take the position
+        node, path = s.pop()  # Take the position and path
+
         # we need to stop the loop once we get to the goal state (if any)
         # this takes into consideration that the given start state is the goal state
         if problem.isGoalState(node):
@@ -121,11 +122,12 @@ def breadthFirstSearch(problem):
     "*** YOUR CODE HERE ***"
     q = util.Queue()
     visited = []  # a list to check if a node has been already visited
-    path = []
+    path = []  # a list to keep track of the path
     q.push((problem.getStartState(), []))
 
     while not q.isEmpty():
-        node, path = q.pop()
+        node, path = q.pop()  # Take the position and path
+
         # we need to stop the loop once we get to the goal state (if any)
         # this takes into consideration that the given start state is the goal state
         if problem.isGoalState(node):
@@ -148,7 +150,8 @@ def uniformCostSearch(problem):
     q.push((problem.getStartState(), [], 0), 0)
 
     while not q.isEmpty():
-        node, path, cost = q.pop()
+        node, path, cost = q.pop()  # Take the position and path and cost
+
         # we need to stop the loop once we get to the goal state (if any)
         # this takes into consideration that the given start state is the goal state
         if problem.isGoalState(node):
@@ -176,20 +179,23 @@ def aStarSearch(problem, heuristic=nullHeuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
     "*** YOUR CODE HERE ***"
     q = util.PriorityQueue()
-    visited_nodes = []
+    visited = []  # a list to check if a node has been already visited
+    path = []  # a list to keep track of the path
     q.push((problem.getStartState(), [], 0), heuristic(problem.getStartState(), problem) + 0)
     while not q.isEmpty():
-        node, path, cost = q.pop()
+        node, path, cost = q.pop()  # Take the position and path and cost
+
         # we need to stop the loop once we get to the goal state (if any)
         # this takes into consideration that the given start state is the goal state
         if problem.isGoalState(node):
             return path
-        if node not in visited_nodes:
+        if node not in visited:
             # Expanding our node by getting all its successors
             successors = problem.getSuccessors(node)
             for successor in successors:
-                q.push((successor[0], path + [successor[1]], cost + successor[2]), cost + successor[2] + heuristic(successor[0], problem))
-            visited_nodes.append(node)
+                q.push((successor[0], path + [successor[1]], cost + successor[2]),
+                       cost + successor[2] + heuristic(successor[0], problem))
+            visited.append(node)
 
     return path
     util.raiseNotDefined()

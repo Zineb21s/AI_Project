@@ -298,7 +298,9 @@ class CornersProblem(search.SearchProblem):
         # Please add any code here which you would like to use
         # in initializing the problem
         "*** YOUR CODE HERE ***"
-        self.visited = [False, False, False, False]  # at first, no corner has been visited yet, so we're setting them to false
+        # We need a list to keep track of all the visited corners
+        # at first, no corner has been visited yet, so we're setting them to false
+        self.visited = [False, False, False, False]
 
     def getStartState(self):
         """
@@ -314,13 +316,12 @@ class CornersProblem(search.SearchProblem):
         Returns whether this search state is a goal state of the problem.
         """
         "*** YOUR CODE HERE ***"
-        count = 0
-        #sprint("State, ", state)
+        # print("State, ", state)
         for corner in state[1]:
             if not corner:
-                # print("CORNER : ", corner)
-                return False
-        return True # that means that all corners were true (visited) and thus we reached our goal
+                return False # that means that at least one corner was not visited, thus we didn't achieve our goal
+
+        return True  # that means that all corners were true (visited) and thus we reached our goal
         util.raiseNotDefined()
 
     def getSuccessors(self, state):
@@ -344,12 +345,12 @@ class CornersProblem(search.SearchProblem):
             #   hitsWall = self.walls[nextx][nexty]
 
             "*** YOUR CODE HERE ***"
-            x, y = state[0] # which is our current position
+            x, y = state[0]  # which is our current position
             dx, dy = Actions.directionToVector(action)
             nextx, nexty = int(x + dx), int(y + dy)
             cornersList = state[1][:]  # list of visited corners
             cost = 1
-           #print("WALLLLS---> ", self.walls)
+            # print("WALLLLS---> ", self.walls)
             if not self.walls[nextx][nexty]:
                 if (nextx, nexty) in self.corners:
                     index = self.corners.index((nextx, nexty))  # find the index of the corner in the list
@@ -390,15 +391,15 @@ def cornersHeuristic(state, problem):
     walls = problem.walls  # These are the walls of the maze, as a Grid (game.py)
 
     "*** YOUR CODE HERE ***"
-    x,y = state[0]
+    x, y = state[0]
     distances = []
     index = 0
     if problem.isGoalState(state):
         return 0
     for corner in state[1]:
-        if not corner: # meaning it is not visited
-            #distances.append(manhattanHeuristic(state[0],corners[index])) # this didn't work for some reason
-           distances.append(abs(x - corners[index][0]) + abs(y - corners[index][1])) #manhattan distance
+        if not corner:  # meaning it is not visited
+            # distances.append(manhattanHeuristic(state[0],corners[index])) # this didn't work for some reason
+            distances.append(abs(x - corners[index][0]) + abs(y - corners[index][1]))  # manhattan distance
         index = index + 1
 
     return min(distances)
@@ -506,20 +507,18 @@ def foodHeuristic(state, problem):
     "*** YOUR CODE HERE ***"
     walls = problem.walls
     foodL = foodGrid.asList()
-    distances = []
+    distances = [] # a list to append distances
     count = 0
     if problem.isGoalState(state):
         return 0
     if state not in walls:
         for food in foodGrid.asList():
-            distances.append(abs(position[0] - food[0]) + abs(position[1] - food[1])) #manhattanHeuristic
+            distances.append(abs(position[0] - food[0]) + abs(position[1] - food[1]))  # manhattanHeuristic
             count = count + 1
-            if(count==2): # getting two positions to avoid expand many nodes
+            if count == 2:  # getting two positions to avoid expanding many nodes
                 return min(distances)
 
-
     return min(distances)
-
 
     return 0
 
@@ -592,10 +591,10 @@ class AnyFoodSearchProblem(PositionSearchProblem):
         x, y = state
 
         "*** YOUR CODE HERE ***"
-        #print("This is state ", state)
-        #print("This is food : ", self.food)
-        #print("This is FOOOOD : ",self.food.asList())
-        return state in self.food.asList()
+        # print("This is state ", state)
+        # print("This is food : ", self.food)
+        # print("This is FOOOOD : ",self.food.asList())
+        return state in self.food.asList() # if our state is in the food list the it is food
         util.raiseNotDefined()
 
 
