@@ -315,7 +315,7 @@ class CornersProblem(search.SearchProblem):
         """
         "*** YOUR CODE HERE ***"
         count = 0
-        print("State, ", state)
+        #sprint("State, ", state)
         for corner in state[1]:
             if not corner:
                 # print("CORNER : ", corner)
@@ -349,6 +349,7 @@ class CornersProblem(search.SearchProblem):
             nextx, nexty = int(x + dx), int(y + dy)
             cornersList = state[1][:]  # list of visited corners
             cost = 1
+           #print("WALLLLS---> ", self.walls)
             if not self.walls[nextx][nexty]:
                 if (nextx, nexty) in self.corners:
                     index = self.corners.index((nextx, nexty))  # find the index of the corner in the list
@@ -396,7 +397,8 @@ def cornersHeuristic(state, problem):
         return 0
     for corner in state[1]:
         if not corner: # meaning it is not visited
-            distances.append(abs(x - corners[index][0]) + abs(y - corners[index][1])) #manhattanHeuristic
+            #distances.append(manhattanHeuristic(state[0],corners[index])) # this didn't work for some reason
+           distances.append(abs(x - corners[index][0]) + abs(y - corners[index][1])) #manhattan distance
         index = index + 1
 
     return min(distances)
@@ -512,7 +514,7 @@ def foodHeuristic(state, problem):
         for food in foodGrid.asList():
             distances.append(abs(position[0] - food[0]) + abs(position[1] - food[1])) #manhattanHeuristic
             count = count + 1
-            if(count==2): # getting two dots
+            if(count==2): # getting two positions to avoid expand many nodes
                 return min(distances)
 
 
