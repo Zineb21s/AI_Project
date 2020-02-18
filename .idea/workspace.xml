@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b6a61a08-5db0-40f3-b80b-0dce4512841b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/search.py" beforeDir="false" afterPath="$PROJECT_DIR$/search.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/searchAgents.py" beforeDir="false" afterPath="$PROJECT_DIR$/searchAgents.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -59,7 +58,14 @@
       <option name="project" value="LOCAL" />
       <updated>1581920324083</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="&quot;Code commenting and minor modification&quot;">
+      <created>1581974179778</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1581974179778</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -78,6 +84,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="&quot;Food heuristic updated&quot;" />
     <MESSAGE value="&quot;General update&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="&quot;General update&quot;" />
+    <MESSAGE value="&quot;Code commenting and minor modification&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="&quot;Code commenting and minor modification&quot;" />
   </component>
 </project>

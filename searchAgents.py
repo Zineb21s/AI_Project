@@ -319,7 +319,7 @@ class CornersProblem(search.SearchProblem):
         # print("State, ", state)
         for corner in state[1]:
             if not corner:
-                return False # that means that at least one corner was not visited, thus we didn't achieve our goal
+                return False  # that means that at least one corner was not visited, thus we didn't achieve our goal
 
         return True  # that means that all corners were true (visited) and thus we reached our goal
         util.raiseNotDefined()
@@ -355,7 +355,8 @@ class CornersProblem(search.SearchProblem):
                 if (nextx, nexty) in self.corners:
                     index = self.corners.index((nextx, nexty))  # find the index of the corner in the list
                     cornersList[index] = True  # we need to mark it as being visited
-                successors.append((((nextx, nexty), cornersList), action, cost))  # append to the successors list ( if a corner is found then it is updated)
+                successors.append((((nextx, nexty), cornersList), action,
+                                   cost))  # append to the successors list ( if a corner is found then it is updated)
 
         self._expanded += 1  # DO NOT CHANGE
         return successors
@@ -399,10 +400,11 @@ def cornersHeuristic(state, problem):
     for corner in state[1]:
         if not corner:  # meaning it is not visited
             # distances.append(manhattanHeuristic(state[0],corners[index])) # this didn't work for some reason
+           # distances.append(util.manhattanDistance(state, corners[index])) # this didn't work aswell for some reason
             distances.append(abs(x - corners[index][0]) + abs(y - corners[index][1]))  # manhattan distance
         index = index + 1
 
-    return min(distances)
+    return max(distances)
 
     return 0  # Default to trivial solution
 
@@ -506,19 +508,19 @@ def foodHeuristic(state, problem):
     position, foodGrid = state
     "*** YOUR CODE HERE ***"
     walls = problem.walls
-    foodL = foodGrid.asList()
-    distances = [] # a list to append distances
+    distances = []  # a list to append distances
     count = 0
     if problem.isGoalState(state):
         return 0
     if state not in walls:
         for food in foodGrid.asList():
-            distances.append(abs(position[0] - food[0]) + abs(position[1] - food[1]))  # manhattanHeuristic
+            distances.append(util.manhattanDistance(position,food))
+           # distances.append(abs(position[0] - food[0]) + abs(position[1] - food[1]))  # manhattanHeuristic
             count = count + 1
             if count == 2:  # getting two positions to avoid expanding many nodes
-                return min(distances)
+                return max(distances)
 
-    return min(distances)
+    return max(distances)
 
     return 0
 
@@ -553,7 +555,7 @@ class ClosestDotSearchAgent(SearchAgent):
         problem = AnyFoodSearchProblem(gameState)
 
         "*** YOUR CODE HERE ***"
-        return search.uniformCostSearch(problem)
+        return search.breadthFirstSearch(problem)
         util.raiseNotDefined()
 
 
@@ -594,7 +596,7 @@ class AnyFoodSearchProblem(PositionSearchProblem):
         # print("This is state ", state)
         # print("This is food : ", self.food)
         # print("This is FOOOOD : ",self.food.asList())
-        return state in self.food.asList() # if our state is in the food list the it is food
+        return state in self.food.asList()  # if our state is in the food list the it is food
         util.raiseNotDefined()
 
 
